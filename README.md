@@ -53,7 +53,7 @@ This powers my **full platform**:
 ## Run Locally
 
 ```bash
-# Frontend
+# Backend
 npm install
 npm run dev
 ```
