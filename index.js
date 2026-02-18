@@ -5,6 +5,9 @@ require('dotenv').config();
 
 
 const app = express();
+// Reading and parsing
+app.use(express.json());
+
 
 
 
@@ -12,6 +15,7 @@ const app = express();
 // TODO Auth, New user, login, renew token
 
 app.use('/api/auth', require('./routes/auth'))
+
 
 //CRUD
 
