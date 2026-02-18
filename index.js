@@ -9,12 +9,13 @@ const app = express();
 
 
 //Routes
+// TODO Auth, New user, login, renew token
 
-/* app.get("/", (req, res) => {
-    res.json({
-        ok: true
-    })
-}) */
+app.use('/api/auth', require('./routes/auth'))
+
+//CRUD
+
+
 
 app.use(express.static('public'));
 
