@@ -9,6 +9,7 @@ const express = require('express');
 const Router = express.Router;
 const {check} = require('express-validator');
 const { createUser, login, renewToken } = require('../controllers/auth');
+const { validateFields } = require('../middlewares/field-validator');
 
 const router = Router();
 
@@ -19,6 +20,7 @@ router.post("/new",
         check('name', 'name is mandatory').not().isEmpty(),
         check('email', 'email is mandatory').isEmail(),
         check('password', 'password should be stronger').isStrongPassword(),
+        validateFields
     ],
     createUser);
 
@@ -28,6 +30,7 @@ router.post("/login",
     [
         check('email', 'email is mandatory').isEmail(),
         check('password', 'password should have a value').not().isEmpty(),
+        validateFields
     ],
     login);
 
