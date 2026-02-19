@@ -1,21 +1,22 @@
 const express = require('express');
+const {validationResult} = require('express-validator');
 
 
 //Post new user
 const createUser  = (req, res = express.response) => {
-    console.log("a ver el body?");
-    console.log(req.body);
+
 
     const {name, email, password} = req.body;
 
-    if (!name || !email || !password) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()){
         return res.status(400).json({
             ok: false,
-            msg: "Everything has to be defined"
+            errors: errors.mapped()
         })
     }
 
-    res.json({
+    res.status(201).json({
         ok: true,
         msg: "create",
         name,
@@ -28,7 +29,16 @@ const createUser  = (req, res = express.response) => {
 //Post login
 const login = (req, res = express.response) => {
     const {email, password} = req.body;
-    res.json({
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()){
+        return res.status(400).json({
+            ok: false,
+            errors: errors.mapped()
+        })
+    }
+
+    res.status(201).json({
         ok: true,
         email,
         password
