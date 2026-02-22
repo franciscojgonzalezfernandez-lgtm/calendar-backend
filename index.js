@@ -1,10 +1,17 @@
 const express = require('express');
+const connectDB = require('./database/config');
 require('dotenv').config();
 
 
 
 
 const app = express();
+
+
+connectDB();
+
+
+
 // Reading and parsing
 app.use(express.json());
 
