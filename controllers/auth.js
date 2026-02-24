@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../models/user');
+const bcrypt = require('bcryptjs');
 
 
 //Post new user
@@ -8,16 +9,29 @@ const createUser  = async (req, res = express.response) => {
     try {
         const {name, email, password} = req.body;
 
-    const user = new User({name, email, password});
-    await user.save();
+        const findedUser = await User.findOne({email});
 
-    res.status(201).json({
-        ok: true,
-        msg: "create",
-        name,
-        email,
-        password
-    })
+        if(findedUser){
+            return res.status(400).json({
+                ok: false,
+                msg: "User already exists with that email"
+            })
+        } 
+
+        const user = new User({name, email, password});
+
+        // Encrypt password
+        const salt = bcrypt.genSaltSync();
+        user.password = bcrypt.hashSync(password, salt);
+        
+        await user.save();
+
+        res.status(201).json({
+            ok: true,
+            msg: "User created successfully",
+            uid: user.id,
+            name: user.name,
+        })
     } catch (error) {
         console.error('Error creating user:', error);
         res.status(500).json({
