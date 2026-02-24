@@ -3,8 +3,31 @@ const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const { generateJWT } = require('../helpers/jwt');
 
+/**
+ * Authentication controllers
+ *
+ * - createUser(req, res): registers a new user.
+ *   Input: { name, email, password } in req.body.
+ *   Output: 201 with { ok, uid, name, token } on success, 400/500 on error.
+ *   Side-effects: hashes password, saves user, generates JWT.
+ *
+ * - login(req, res): authenticates an existing user.
+ *   Input: { email, password } in req.body.
+ *   Output: 201 with { ok, uid, name, token } on success, 400/500 on error.
+ *
+ * - renewToken(req, res): issues a fresh JWT.
+ *   Input: req.uid and req.name (set by JWT validation middleware).
+ *   Output: { ok, token }.
+ */
 
-//Post new user
+
+// Post new user
+/**
+ * Register a new user.
+ *
+ * Expects: req.body = { name, email, password }
+ * Returns: 201 with user id, name and token. 400 if email already exists.
+ */
 const createUser = async (req, res = express.response) => {
 
     try {
@@ -47,7 +70,13 @@ const createUser = async (req, res = express.response) => {
 }
 
 
-//Post login
+// Post login
+/**
+ * Authenticate user with email and password.
+ *
+ * Expects: req.body = { email, password }
+ * Returns: 201 with user id, name and token. 400 on invalid credentials.
+ */
 const login = async (req, res = express.response) => {
     const { email, password } = req.body;
     try {
@@ -88,15 +117,22 @@ const login = async (req, res = express.response) => {
     }
 }
 
-//Get token
-const renewToken = (req, res = express.response) => {
+// Get token
+/**
+ * Renew JWT for an authenticated user.
+ *
+ * Requires: req.uid and req.name (from validateJWT middleware).
+ * Returns: { ok: true, token } with a new token.
+ */
+const renewToken = async (req, res = express.response) => {
+    // Generate JWT
+    const token = await generateJWT(req.uid, req.name);
     res.json({
-        ok: true
-    })
+        ok: true,
+        msg: "Renew token",
+        token
+    });
 }
-
-
-
 
 module.exports = {
     createUser,
