@@ -27,6 +27,7 @@ app.use(express.static('public'));
 // TODO Auth, New user, login, renew token
 
 app.use('/api/auth', require('./routes/auth'))
+app.use('/api/events', require('./routes/events'))
 
 
 
