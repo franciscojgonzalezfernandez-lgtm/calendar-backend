@@ -9,6 +9,10 @@ const Event = require('../models/Event');
  * - getEvents(req, res): retrieves all events for the authenticated user.
  *   Input: req.uid (set by JWT validation middleware).
  *   Output: { ok, events } where events is an array of event objects.
+ * 
+ * - getAllEvents(req, res): retrieves all the events from all users. Only for admin users
+ *   Input: (req.uid) (set by JWT validation middleware) // TO DO
+ *   Output: {ok, events} where events is an array of event objects
  *
  * - createEvent(req, res): creates a new event for the authenticated user.
  *   Input: req.uid and req.name (set by JWT validation middleware), and
@@ -30,9 +34,17 @@ const getEvents = async (req, res = response) => {
     res.json({ ok: true, events });
 }
 
+const getAllEvents = async (req, res = response) => {
+    const events = await Event.find().populate('user', 'name');
+    res.json({ ok: true, events });
+}
+
+
 const createEvent = async (req, res = response) => {
     const event = new Event(req.body);
     event.user = req.uid;
+    console.log('Creating event:', event);
+    console.log('Event user ID:', event.user);
 
     try {
         await event.save();
@@ -89,6 +101,7 @@ const deleteEvent = async (req, res = response) => {
 
 module.exports = {
     getEvents,
+    getAllEvents,
     createEvent,
     updateEvent,
     deleteEvent

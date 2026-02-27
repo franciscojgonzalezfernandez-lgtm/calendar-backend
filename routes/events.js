@@ -4,7 +4,7 @@
 const express = require('express');
 const Router = express.Router;
 const { check } = require('express-validator');
-const { getEvents, createEvent, updateEvent, deleteEvent } = require('../controllers/events');
+const { getEvents, getAllEvents, createEvent, updateEvent, deleteEvent } = require('../controllers/events');
 const { validateFields } = require('../middlewares/field-validator');
 const { validateJWT } = require('../middlewares/validate-jwt');
 const { isDate } = require('../helpers/isDate');
@@ -15,6 +15,9 @@ router.use(validateJWT);
 
 //Get events
 router.get("/", getEvents);
+
+//Get ALL events
+router.get("/all", getAllEvents);
 
 //Create event
 router.post("/new",
