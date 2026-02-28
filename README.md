@@ -1,18 +1,16 @@
 # Calendar App BACKEND 🚀
 
-**UNDER CONSTRUCTION...**
+**MVP DONE...**
 
-Backend with Node + Express + Mongo stack for the ** snowboard lesson booking platform**. Perfect portfolio project showcasing full-stack basics with MongoDB backend.
+Backend with Node + Express + Mongo stack for the ** snowboard lesson booking platform**. Perfect portfolio project showcasing full-stack basics with MongoDB backend. This is a Express backend which lets the user create events. It has to be updated to let the user create "availability" events and "booking" events on top of them.
 
 
 ## Tech Stack
 
 | Category     | Tech              |
 |--------------|-------------------|
-| Framework    | React + TypeScript |
-| State        | Redux Toolkit     |
-| Styling      | Bootstrap 5       |
-| Backend      | Node.js + MongoDB |
+| Backend      | Node.js + Express |
+| Database     | Mongoose + MongoDB Atlas     |
 | Dates        | date-fns          |
 | Build        | Vite              |
 
@@ -20,18 +18,14 @@ Backend with Node + Express + Mongo stack for the ** snowboard lesson booking pl
 
 Small stepping stone to build **date fluency** (range selection, availability, validations) before the **BIG Snowboard Booking Platform**.
 
-- Bootstrap for responsive UI (mobile-first snow pros)
-- Redux for scalable state (future multi-user bookings)
 - MongoDB for real persistence
-- TypeScript everywhere
+- Javascript to make it faster
 
 ## Features
 
-- ✅ Calendar picker with date ranges
-- ✅ Redux state sync across components
-- ✅ Bootstrap modals/forms for events
+- ✅ User creation
+- ✅ JWT Session persistion
 - ✅ MongoDB CRUD operations
-- ✅ Responsive design (desktop/mobile)
 
 ## Architecture
 Frontend (React/Redux/Bootstrap)
