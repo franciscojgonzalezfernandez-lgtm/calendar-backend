@@ -4,6 +4,26 @@
 
 Backend with Node + Express + Mongo stack for the ** snowboard lesson booking platform**. Perfect portfolio project showcasing full-stack basics with MongoDB backend. This is a Express backend which lets the user create events. It has to be updated to let the user create "availability" events and "booking" events on top of them.
 
+### Base URL: https://calendar-backend-javier.up.railway.app/api
+
+
+
+
+### Available endpoints
+
+| Method | Endpoint              | Description                  |
+|--------|----------------------|------------------------------|
+| `POST` | `/events/new`            | Create new event             |
+| `GET`  | `/events/all`            | Get all events               |
+| `GET`  | `/events/`        | Get events of that user           |
+| `PUT`  | `/events/:id`        | Update event                 |
+| `DELETE` | `/events/:id`      | Delete event                 |
+| `POST` | `/auth/new`     | Register new user            |
+| `POST` | `/auth/login`        | Login user (returns JWT)     |
+
+### Headers
+
+
 
 ## Tech Stack
 
