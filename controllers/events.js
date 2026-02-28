@@ -1,7 +1,7 @@
 //controllers for events
 
 const { response } = require('express');
-const Event = require('../models/Event');
+const Event = require('../models/event');
 
 /**
  * Event controllers
