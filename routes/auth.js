@@ -20,7 +20,7 @@ router.post("/new",
     [
         check('name', 'name is mandatory').not().isEmpty(),
         check('email', 'email is mandatory').isEmail(),
-        check('password', 'password should be stronger').isStrongPassword(),
+        check('password', 'password should have min 6 characters').isLength({ min: 6 }),
         validateFields
     ],
     createUser);
