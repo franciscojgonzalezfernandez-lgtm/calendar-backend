@@ -25,8 +25,21 @@ const eventSchema = new Schema({
 });
 
 eventSchema.method('toJSON', function () {
-    const { __v, _id, ...object } = this.toObject();
+    // Convert mongoose document to plain object and normalize ids
+    const obj = this.toObject();
+    const { __v, _id, ...object } = obj;
     object.id = _id;
+
+    // If the user was populated, convert its _id to id as well
+    if (object.user && typeof object.user === 'object') {
+        if (object.user._id) {
+            object.user.id = object.user._id;
+            delete object.user._id;
+        }
+        // Remove possible __v from populated user
+        if (object.user.__v !== undefined) delete object.user.__v;
+    }
+
     return object;
 });
 
