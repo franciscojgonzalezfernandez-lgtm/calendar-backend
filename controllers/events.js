@@ -2,6 +2,7 @@
 
 const { response } = require('express');
 const Event = require('../models/event');
+const event = require('../models/event');
 
 /**
  * Event controllers
@@ -43,12 +44,12 @@ const getAllEvents = async (req, res = response) => {
 const createEvent = async (req, res = response) => {
     const event = new Event(req.body);
     event.user = req.uid;
-    console.log('Creating event:', event);
-    console.log('Event user ID:', event.user);
 
     try {
         await event.save();
-        res.status(201).json({ ok: true, event });
+        // Convert to plain object to include virtuals and getters and avoid Mongoose document issues in response
+        const plainEvent = event.toObject({ getters: true, virtuals: false });
+        res.status(201).json({ ok: true, event: plainEvent });
     } catch (error) {
         console.error(error);
         res.status(500).json({ ok: false, error: 'Error creating event' });
@@ -69,7 +70,16 @@ const updateEvent = async (req, res = response) => {
             return res.status(401).json({ ok: false, msg: 'Unauthorized' });
         }
 
-        const updatedEvent = await Event.findByIdAndUpdate(eventId, req.body, { new: true });
+        // Prevent client from sending a user object in the update payload
+        // which would cause Mongoose to attempt casting it to ObjectId.
+        const { user: userFromBody, ...fieldsToUpdate } = req.body;
+
+        const updatedEvent = await Event.findByIdAndUpdate(
+            eventId,
+            fieldsToUpdate,
+            { new: true }
+        ).populate('user', 'name');
+
         res.json({ ok: true, event: updatedEvent });
     } catch (error) {
         console.error(error);
@@ -86,11 +96,9 @@ const deleteEvent = async (req, res = response) => {
         if (!event) {
             return res.status(404).json({ ok: false, msg: 'Event not found' });
         }
-
         if (event.user.toString() !== uid) {
             return res.status(401).json({ ok: false, msg: 'Unauthorized' });
         }
-
         await Event.findByIdAndDelete(eventId);
         res.json({ ok: true });
     } catch (error) {
