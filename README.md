@@ -6,7 +6,11 @@ Backend with **Node + Express + Mongo** stack for the **snowboard lesson booking
 <p align="center">
   <a href="https://javier-gonzalez-portfolio.com/portfolio/full-stack-calendar">
     <b>🖥️ LIVE DEMO</b>
-  </a> • 
+  </a>
+</p>
+
+<p align="center">
+  
   <a href="https://franciscojgonzalezfernandez-lgtm.github.io/calendar/">
     <b>🔥 TRY IT YOURSELF</b>
   </a> • 
