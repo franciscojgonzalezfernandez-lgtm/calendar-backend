@@ -4,6 +4,9 @@
 Backend with **Node + Express + Mongo** stack for the **snowboard lesson booking platform**. Perfect portfolio project showcasing full-stack basics with MongoDB backend. This is a Express backend which lets the user create events. It has to be updated to let the user create "availability" events and "booking" events on top of them.
 
 <p align="center">
+  <a href="https://javier-gonzalez-portfolio.com/portfolio/full-stack-calendar">
+    <b>🖥️ LIVE DEMO</b>
+  </a> • 
   <a href="https://franciscojgonzalezfernandez-lgtm.github.io/calendar/">
     <b>🔥 TRY IT YOURSELF</b>
   </a> • 
