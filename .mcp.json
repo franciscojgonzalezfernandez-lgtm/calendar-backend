@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "github-rename": {
-      "command": "node",
-      "args": ["/root/.claude/github-rename-mcp.js"]
-    }
-  }
-}
